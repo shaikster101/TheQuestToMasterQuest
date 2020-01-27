@@ -32,7 +32,7 @@ public class TreasureHunter : MonoBehaviour
     {
         
         if(GameInventory.Inventory.Count >= 3){
-            GameStatus.text = "You Win"; 
+            GameStatus.text = "You Win - Husam Shaik"; 
         }
         
 
@@ -41,7 +41,7 @@ public class TreasureHunter : MonoBehaviour
             if(nicksHead != null){
                 if(!GameInventory.Inventory.Contains(nicksHead)){
                     GameInventory.Inventory.Add(nicksHead);
-                    InventoryStatus.text = "Inventory Status: You found " + nicksHead.name + " with a point value of " + nicksHead.GetComponent<Collectible>().pointVal;  
+                    InventoryStatus.text = "Husam Shaik's Inventory Status: You found " + nicksHead.name + " with a point value of " + nicksHead.GetComponent<Collectible>().pointVal;  
                 }
             }
             
@@ -52,7 +52,7 @@ public class TreasureHunter : MonoBehaviour
              if(nicksBody != null){
                 if(!GameInventory.Inventory.Contains(nicksBody)){
                     GameInventory.Inventory.Add(nicksBody);
-                    InventoryStatus.text = "Inventory Status: You found " + nicksBody.name + " with a point value of " + nicksBody.GetComponent<Collectible>().pointVal;  
+                    InventoryStatus.text = "Husam Shaik's Inventory Status: You found " + nicksBody.name + " with a point value of " + nicksBody.GetComponent<Collectible>().pointVal;  
                 }
             }
         }
@@ -62,7 +62,7 @@ public class TreasureHunter : MonoBehaviour
             if(nicksSoul != null){
                 if(!GameInventory.Inventory.Contains(nicksSoul)){
                    GameInventory.Inventory.Add(nicksSoul);
-                   InventoryStatus.text = "Inventory Status: You found " + nicksBody.name + " with a point value of " + nicksSoul.GetComponent<Collectible>().pointVal;  
+                   InventoryStatus.text = "Husam Shaik's Inventory Status: You found " + nicksSoul.name + " with a point value of " + nicksSoul.GetComponent<Collectible>().pointVal;  
                 }
             }
         }
@@ -72,7 +72,7 @@ public class TreasureHunter : MonoBehaviour
 
             int pointValue = 0; 
 
-            string InventoryOverview = "You Have Collected: " + GameInventory.Inventory.Count + " parts.( ";  
+            string InventoryOverview = "Husam Shaik's has Collected: " + GameInventory.Inventory.Count + " parts.( ";  
 
             foreach(GameObject GO in GameInventory.Inventory){
                 pointValue += GO.GetComponent<Collectible>().pointVal; 
