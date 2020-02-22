@@ -22,7 +22,16 @@ public class TreasureHunter : MonoBehaviour
     GameObject GreenMagic;
     GameObject RedMagic;
 
-    GameObject YellowMagic; 
+    GameObject YellowMagic;
+
+
+    public CollisonChecker rightChecker; 
+
+    public CollisonChecker leftChecker; 
+
+    private GameObject grabbedObject; 
+
+    public Transform cameraPos; 
   
    
     void Start()
@@ -36,66 +45,58 @@ public class TreasureHunter : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        //Cursor.lockState = CursorLockMode.Locked;
-        
-        // Does the ray intersect any objects excluding the player layer
+    {   
 
-        // if(Input.GetMouseButtonDown(0)){
+      if(rightChecker != null || leftChecker != null){
+          if(rightChecker.triggered != null){
+              grabbedObject = rightChecker.triggered;
+          }else if(leftChecker.triggered != null ){
+               grabbedObject = leftChecker.triggered;
+          }else{
+              grabbedObject = null; 
+          }
+      }
 
-        //     RaycastHit hit;
-        //     if (Physics.Raycast(RayCastTransform.position, RayCastTransform.forward, out hit, 10))
-        //     {
-        //         if(hit.collider.gameObject.tag == "Collectible"){
+      if(grabbedObject != null){
 
-        //             numItems++; 
+            float dist = Vector3.Distance(new Vector3(cameraPos.transform.position.x, cameraPos.transform.position.y - 0.6f, cameraPos.transform.position.z), grabbedObject.transform.position); 
+            //updateText.text = "" + dist; 
+            if(dist < 0.20f){
 
-        //             if(hit.collider.gameObject.name.Contains("BlueMagic")){
-        //                  GameInventory.Inventory.Add(BlueMagic);
-        //             }else if(hit.collider.gameObject.name.Contains("GreenMagic")){
-        //                 GameInventory.Inventory.Add(GreenMagic);
-        //             }else{
-                       
-        //                 GameInventory.Inventory.Add(RedMagic);
-                        
-        //             }
+                Destroy(grabbedObject);
 
-    
-        //              updateText.text = "Update: Collected " +  hit.transform.gameObject.name + " with val of " + hit.transform.gameObject.GetComponent<Collectible>().pointVal; 
-        //              score = score + hit.transform.gameObject.GetComponent<Collectible>().pointVal; 
-        //              Destroy(hit.transform.gameObject); 
-        //              scoreText.text = "Husam's Score: " + score; 
-                   
-        //         }
-        //     }
+                GameObject temp; 
 
-        //     itemNumerText.text = "Items Collected: " + numItems;  
-        // }
-        
+                numItems ++; 
 
-    }
+                itemNumerText.text = "Items Collected: " + numItems;
+                if(grabbedObject.name.Contains("BlueMagic")){
+                        GameInventory.Inventory.Add(BlueMagic);
+                        temp = BlueMagic; 
+                        Debug.Log("Logged Blue"); 
+                }else if(grabbedObject.name.Contains("GreenMagic")){
+                        GameInventory.Inventory.Add(GreenMagic);
+                        temp= GreenMagic; 
+                         Debug.Log("Logged Green"); 
+                }else if(grabbedObject.name.Contains("YellowMagic")){
+                        GameInventory.Inventory.Add(YellowMagic);
+                        temp=YellowMagic;
+                         Debug.Log("Logged Yello"); 
+                }else{
+                        temp=RedMagic; 
+                        GameInventory.Inventory.Add(RedMagic);
+                         Debug.Log("Logged Red"); 
+                }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Collectible"){
-            numItems ++; 
-
-            if(other.transform.gameObject.name.Contains("BlueMagic")){
-                    GameInventory.Inventory.Add(BlueMagic);
-            }else if(other.transform.gameObject.name.Contains("GreenMagic")){
-                GameInventory.Inventory.Add(GreenMagic);
-            }else if(other.transform.gameObject.name.Contains("YellowMagic")){
-                GameInventory.Inventory.Add(YellowMagic);
-            }else{
-                GameInventory.Inventory.Add(RedMagic);
+                updateText.text = "Update: Collected " +  temp.name + " with val of " + temp.GetComponent<Collectible>().pointVal; 
+                score = score + temp.GetComponent<Collectible>().pointVal; 
+                scoreText.text = "Husam's Score: " + score; 
             }
+           
+      }
 
-             updateText.text = "Update: Collected " +  other.transform.gameObject.name + " with val of " + other.transform.gameObject.GetComponent<Collectible>().pointVal; 
-            score = score + other.transform.gameObject.GetComponent<Collectible>().pointVal; 
-            Destroy(other.transform.gameObject); 
-            scoreText.text = "Husam's Score: " + score; 
-        }
     }
+
 
 
 
