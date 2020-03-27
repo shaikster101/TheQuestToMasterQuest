@@ -7,6 +7,7 @@ public class S2CRedirection : MonoBehaviour
 
     //Public Vars: 
     public Camera headCamera;
+    
     public Transform trackingSpace;
 
 
@@ -32,7 +33,7 @@ public class S2CRedirection : MonoBehaviour
         Vector3 correctTrackingVector = new Vector3(B.x, 0, B.z);
 
         float angle = Mathf.Acos(Vector3.Dot(Vector3.Normalize(correctCameraVector), Vector3.Normalize(correctTrackingVector)));
-
+        angle = angle*180/Mathf.PI;
         return angle; 
     }
 
@@ -47,6 +48,8 @@ public class S2CRedirection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.DrawLine(headCamera.transform.position, headCamera.transform.position+headCamera.transform.forward, Color.yellow);
+
         float howMuchUserRotated = angleBetweenVectors(prevForwardVector, headCamera.transform.forward);
 
         int directionUserRotated = (d(headCamera.transform.position + prevForwardVector, headCamera.transform.position, headCamera.transform.position + headCamera.transform.position) < 0) ? 1 : -1;
@@ -84,4 +87,6 @@ public class S2CRedirection : MonoBehaviour
 
 
     }
+
+
 }
