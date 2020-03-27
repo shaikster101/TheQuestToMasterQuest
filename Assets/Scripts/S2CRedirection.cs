@@ -13,6 +13,11 @@ public class S2CRedirection : MonoBehaviour
 
     private Vector3 prevForwardVector;
     private float prevYawRelativeToCenter; 
+    private Vector3 prevLocation;
+    
+    //usually 50%-100%
+    public float translationalGainThreshold;
+    public TextMesh TranslationText; 
 
 
     //Direction function
@@ -41,6 +46,7 @@ public class S2CRedirection : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        prevLocation=headCamera.transform.position;
         prevForwardVector = headCamera.transform.forward;
         prevYawRelativeToCenter = angleBetweenVectors(headCamera.transform.forward, trackingSpace.position - headCamera.transform.position);
     }
@@ -48,7 +54,13 @@ public class S2CRedirection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.DrawLine(headCamera.transform.position, headCamera.transform.position+headCamera.transform.forward, Color.yellow);
+        // translational gain
+        Vector3 trajectoryVector=headCamera.transform.position-prevLocation;
+        Vector3 howMuchToTranslate=Vector3.Normalize(trajectoryVector)*translationalGainThreshold;
+        trackingSpace.position+=howMuchToTranslate;
+
+
+
 
         float howMuchUserRotated = angleBetweenVectors(prevForwardVector, headCamera.transform.forward);
 
@@ -84,8 +96,8 @@ public class S2CRedirection : MonoBehaviour
         prevYawRelativeToCenter = angleBetweenVectors(headCamera.transform.forward, trackingSpace.position - headCamera.transform.forward);
 
        
-
-
+        prevLocation=headCamera.transform.position;
+        TranslationText.text = "Translational Gain Threshold " + translationalGainThreshold;
     }
 
 

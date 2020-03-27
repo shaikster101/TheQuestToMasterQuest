@@ -57,7 +57,6 @@ public class TreasureHunterWSAD : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collide");
         Debug.Log(other.gameObject.tag);
         if(other.CompareTag("Collectible")){
             //updateText.text = "" + dist; 
@@ -96,7 +95,7 @@ public class TreasureHunterWSAD : MonoBehaviour
                 updateText.text = "You Have: Red(10pts): " + redNum + " " +  "Blue(30pts): " + blueNum + " " + "Green(20pts): " + greenNum + " " + "Yellow(50pts): " + yellowNum; 
                 score = score + temp.GetComponent<Collectible>().pointVal; 
                 scoreText.text = "Score: " + score; 
-                 Destroy(other.GetComponent<Collider>().gameObject);
+                Destroy(other.GetComponent<Collider>().gameObject);
             }
            
     }
