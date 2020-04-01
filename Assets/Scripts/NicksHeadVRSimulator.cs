@@ -28,7 +28,7 @@ public class NicksHeadVRSimulator : MonoBehaviour
             print("not using player controller... probably just rig");
         }
         this.gameObject.tag = "Untagged";
-        this.GetComponent<Camera>().enabled = false;
+        //this.GetComponent<Camera>().enabled = false;
         aerialViewCam.gameObject.tag = "MainCamera";
         aerialViewCam.transform.parent = this.transform;
         aerialViewCam.transform.localPosition = new Vector3(0, aerialViewCam.transform.localPosition.y, 0);
