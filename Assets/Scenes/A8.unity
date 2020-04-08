@@ -484,7 +484,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -2421,6 +2421,11 @@ PrefabInstance:
       propertyPath: m_FontSize
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 6488306285967543949, guid: ef96cc32e669590459eb984263fecaab,
+        type: 3}
+      propertyPath: m_Text
+      value: 'You Have Collected: 0/10 Music Boxes'
+      objectReference: {fileID: 0}
     - target: {fileID: 6488306285967543950, guid: ef96cc32e669590459eb984263fecaab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3786,7 +3791,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -4081,7 +4086,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -8687,7 +8692,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -10922,7 +10927,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -14020,7 +14025,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -14338,7 +14343,7 @@ PrefabInstance:
     - target: {fileID: 5866745594787275778, guid: 02de845dd693b734280a085b47864e4d,
         type: 3}
       propertyPath: m_Text
-      value: 'Score:'
+      value: 'Time: 0'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02de845dd693b734280a085b47864e4d, type: 3}
@@ -16588,7 +16593,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -18214,7 +18219,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -18674,7 +18679,7 @@ PrefabInstance:
     - target: {fileID: 5866745594787275777, guid: 02de845dd693b734280a085b47864e4d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5866745594787275777, guid: 02de845dd693b734280a085b47864e4d,
         type: 3}
@@ -20346,6 +20351,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryStatus
       objectReference: {fileID: 0}
+    - target: {fileID: 107967848786702266, guid: 74e68aad6088f7e439bebe0dfa77fded,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 107967848786702261, guid: 74e68aad6088f7e439bebe0dfa77fded,
         type: 3}
       propertyPath: m_FontSize
@@ -21384,7 +21394,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0
@@ -22170,7 +22180,7 @@ AudioSource:
   Spatialize: 1
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
+  DopplerLevel: 0
   MinDistance: 1
   MaxDistance: 5
   Pan2D: 0

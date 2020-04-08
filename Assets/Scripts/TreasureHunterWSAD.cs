@@ -32,6 +32,9 @@ public class TreasureHunterWSAD : MonoBehaviour
     GameObject YellowMagic;
 
 
+    private float time;
+
+
 
     private GameObject grabbedObject; 
 
@@ -44,15 +47,25 @@ public class TreasureHunterWSAD : MonoBehaviour
         BlueMagic = Resources.Load("BlueMagic", typeof(GameObject)) as GameObject; 
         GreenMagic = Resources.Load("GreenMagic", typeof(GameObject)) as GameObject;
         RedMagic = Resources.Load("RedMagic", typeof(GameObject)) as GameObject; 
-        YellowMagic = Resources.Load("YellowMagic", typeof(GameObject)) as GameObject; 
+        YellowMagic = Resources.Load("YellowMagic", typeof(GameObject)) as GameObject;
+
+        time = 0; 
     }
 
     // Update is called once per frame
-    void LateUpdate()
-    {   
-
-
-
+    void Update()
+    {
+        if (yellowNum < 10)
+        {
+            time += Time.deltaTime;
+            scoreText.text = "Time: " + time; 
+        }
+        else
+        {
+            updateText.text = "You have WON!!!";
+            scoreText.text = scoreText.text;
+            this.gameObject.GetComponent<NicksHeadVRSimulator>().enabled = false;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -92,11 +105,14 @@ public class TreasureHunterWSAD : MonoBehaviour
                         Debug.Log("Logged Red"); 
                 }
 
-                updateText.text = "You Have: Red(10pts): " + redNum + " " +  "Blue(30pts): " + blueNum + " " + "Green(20pts): " + greenNum + " " + "Yellow(50pts): " + yellowNum; 
-                score = score + temp.GetComponent<Collectible>().pointVal; 
-                scoreText.text = "Score: " + score; 
+                updateText.text = "You Have Collected: " + yellowNum + "/10 Music Boxes"; 
+                score = score + temp.GetComponent<Collectible>().pointVal;
+                
+                
                 Destroy(other.GetComponent<Collider>().gameObject);
-            }
+
+                
+        }
            
     }
 
