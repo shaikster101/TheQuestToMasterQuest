@@ -10,7 +10,9 @@ public class IKController : MonoBehaviour
     GameObject wristJoint;
     GameObject shoulderMesh;
     GameObject shoulderJoint;
+    GameObject wristGoalMesh1;
     Vector3 PreviousUp;
+
     public float translationalSpeed = 0.01f;
     public float rotationalSpeed = 1.0f;
     private float previwristPos;
@@ -23,6 +25,7 @@ public class IKController : MonoBehaviour
     {
         shoulderMesh = GameObject.Find("SJMesh");
         wristGoal = GameObject.Find("wristGoal1");
+        wristGoalMesh1 = GameObject.Find("wristGoalMesh1");
         handGoal = GameObject.Find("handGoalMesh1");
         wristMesh = GameObject.Find("WJ");
         wristJoint = GameObject.Find("WJ1");
@@ -63,22 +66,22 @@ public class IKController : MonoBehaviour
         // Calculate elbow position
         float shoulderDistance = Vector3.Distance(wristMesh.transform.position, shoulderMesh.transform.position);
 
-        elbowJoint.transform.LookAt(wristJoint.transform.position);
+        //elbowJoint.transform.LookAt(wristJoint.transform.position);
 
-
+        elbowJoint.transform.rotation = Quaternion.LookRotation(wristJoint.transform.position-elbowJoint.transform.position);
 
         if (wristGoal.transform.position.z > 0)
         {
-            if (Vector3.Distance(wristGoal.transform.position, shoulderMesh.transform.position) > 0.55)
+            if (Vector3.Distance(wristGoalMesh1.transform.position, shoulderMesh.transform.position) >= 0.60f)
             {
                 shoulderJoint.transform.LookAt(wristGoal.transform.position);
 
                 //Vector3 _direction = (wristGoal.transform.position - shoulderJoint.transform.position).normalized;
                 Vector3 elbowDirection = Vector3.Normalize(wristGoal.transform.position - elbowJoint.transform.position);
-                wristJoint.transform.position = elbowDirection * 0.3f + elbowJoint.transform.position;
-                //Quaternion _lookRotation = Quaternion.LookRotation(_direction);
+                wristJoint.transform.position = elbowDirection * 0.3f + elbowJoint.transform.position ;
 
-                //shoulderJoint.transform.rotation = _lookRotation; 
+                elbowJoint.transform.rotation = Quaternion.LookRotation(wristJoint.transform.position-elbowJoint.transform.position);
+
             }
             else
             {
@@ -86,19 +89,16 @@ public class IKController : MonoBehaviour
                 wristJoint.transform.position = wristGoal.transform.position;
                 //Update the elbow position
                 float deltaX = wristJoint.transform.position.z - previwristPos;
-                float elbowDist = 0.3f; //Vector3.Distance(wristJoint.transform.position, elbowJoint.transform.position); //A
-                float forearmDist = 0.3f; //Vector3.Distance(elbowJoint.transform.position, shoulderMesh.transform.position); //B
-                float targetAngle = Mathf.Acos((Mathf.Pow(shoulderDistance, 2) + Mathf.Pow(elbowDist, 2) - Mathf.Pow(forearmDist, 2)) / (2 * shoulderDistance * elbowDist));
+                float targetAngle = Mathf.Acos((Mathf.Pow(shoulderDistance, 2) + Mathf.Pow(armL, 2) - Mathf.Pow(forearmL, 2)) / (2 * shoulderDistance * armL));
                 //get the current angle
                 Vector3 shoulderToWrist = wristJoint.transform.position - shoulderMesh.transform.position;
                 float currentAngle = Mathf.Acos(Vector3.Dot(Vector3.Normalize(shoulderToWrist), Vector3.Normalize(shoulderJoint.transform.forward)));
                 float rotateAngle = currentAngle - targetAngle;
                 shoulderJoint.transform.RotateAround(shoulderJoint.transform.position, new Vector3(-1, 0, 0), rotateAngle * 15);
-                // }
-                // else
-                // {
-                //     elbowJoint.transform.position = wristGoal.transform.position - elbowOffset;
-                // }
+
+                elbowJoint.transform.rotation = Quaternion.LookRotation(wristJoint.transform.position-elbowJoint.transform.position);
+
+
             }
         }
         previwristPos = wristJoint.transform.position.z;
