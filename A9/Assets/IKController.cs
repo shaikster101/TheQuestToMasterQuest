@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 public class IKController : MonoBehaviour
 {
-    GameObject wristGoal;
-    GameObject handGoal;
-    GameObject wristMesh;
-    GameObject elbowJoint;
-    GameObject wristJoint;
-    GameObject shoulderMesh;
-    GameObject shoulderJoint;
-    GameObject wristGoalMesh1;
-    Vector3 PreviousUp;
+    private GameObject wristGoal;
+    private GameObject handGoal;
+    private GameObject wristMesh;
+    private GameObject elbowJoint;
+    private GameObject wristJoint;
+    private GameObject shoulderMesh;
+    private GameObject shoulderJoint;
+    private GameObject wristGoalMesh1;
+    private Vector3 PreviousUp;
 
     public float translationalSpeed = 0.01f;
     public float rotationalSpeed = 1.0f;
@@ -20,7 +20,7 @@ public class IKController : MonoBehaviour
     float rotationDirection = 0;
     private float armL = 0.3f;
     Vector3 offset;
-    // Start is called before the first frame update
+ 
     void Start()
     {
         shoulderMesh = GameObject.Find("SJMesh");
@@ -35,7 +35,7 @@ public class IKController : MonoBehaviour
         PreviousUp = handGoal.transform.up;
         previwristPos = wristJoint.transform.position.z;
     }
-    // Update is called once per frame
+
     void Update()
     {
         //translate with mouse
@@ -64,9 +64,6 @@ public class IKController : MonoBehaviour
 
         wristJoint.transform.rotation = wristGoal.transform.rotation;
         // Calculate elbow position
-        float shoulderDistance = Vector3.Distance(wristMesh.transform.position, shoulderMesh.transform.position);
-
-        //elbowJoint.transform.LookAt(wristJoint.transform.position);
 
         elbowJoint.transform.rotation = Quaternion.LookRotation(wristJoint.transform.position-elbowJoint.transform.position);
 
@@ -75,17 +72,15 @@ public class IKController : MonoBehaviour
             if (Vector3.Distance(wristGoalMesh1.transform.position, shoulderMesh.transform.position) >= 0.60f)
             {
                 shoulderJoint.transform.LookAt(wristGoal.transform.position);
-
-                //Vector3 _direction = (wristGoal.transform.position - shoulderJoint.transform.position).normalized;
                 Vector3 elbowDirection = Vector3.Normalize(wristGoal.transform.position - elbowJoint.transform.position);
                 wristJoint.transform.position = elbowDirection * 0.3f + elbowJoint.transform.position ;
-
                 elbowJoint.transform.rotation = Quaternion.LookRotation(wristJoint.transform.position-elbowJoint.transform.position);
 
             }
             else
             {
 
+                float shoulderDistance = Vector3.Distance(wristMesh.transform.position, shoulderMesh.transform.position);
                 wristJoint.transform.position = wristGoal.transform.position;
                 //Update the elbow position
                 float deltaX = wristJoint.transform.position.z - previwristPos;
@@ -114,7 +109,6 @@ public class IKController : MonoBehaviour
     }
     public static float d(Vector3 pointToTest, Vector3 vectorSource, Vector3 vectorDestination)
     {
-        //(pointToTest.x−vectorSource.x)(vectorDestination.y−vectorSource.y)−(pointToTest.y−vectorSource.y)(vectorDestination.x−vectorSource.x)
         float d = (pointToTest.y - vectorSource.y) * (vectorDestination.z - vectorSource.z) - (pointToTest.z - vectorSource.z) * (vectorDestination.y - vectorSource.y);
         return d;
     }
