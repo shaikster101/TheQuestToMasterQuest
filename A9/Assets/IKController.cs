@@ -12,6 +12,7 @@ public class IKController : MonoBehaviour
     private GameObject shoulderJoint;
     private GameObject wristGoalMesh1;
     private Vector3 PreviousUp;
+    private GameObject hand;
 
     public float translationalSpeed = 0.01f;
     public float rotationalSpeed = 1.0f;
@@ -27,10 +28,11 @@ public class IKController : MonoBehaviour
         wristGoal = GameObject.Find("wristGoal1");
         wristGoalMesh1 = GameObject.Find("wristGoalMesh1");
         handGoal = GameObject.Find("handGoalMesh1");
-        wristMesh = GameObject.Find("WJ");
+        wristMesh = GameObject.Find("WJmesh");
         wristJoint = GameObject.Find("WJ1");
         elbowJoint = GameObject.Find("EJ1");
         shoulderJoint = GameObject.Find("SJ1");
+        hand = GameObject.Find("WJ");
         Cursor.lockState = CursorLockMode.Locked;
         PreviousUp = handGoal.transform.up;
         previwristPos = wristJoint.transform.position.z;
@@ -49,10 +51,11 @@ public class IKController : MonoBehaviour
         //always match the angle that you see in the editor. Really solid engine 10/10
         // restrict hand-wrist rotation
 
-        Vector3 handGoalUp = handGoal.transform.up;
+        Vector3 handUp = hand.transform.up;
         Vector3 forearmUp = wristMesh.transform.position - elbowJoint.transform.position;
-        float dir = d(handGoal.transform.position + Vector3.Normalize(forearmUp), handGoal.transform.position, handGoal.transform.position + handGoalUp);
-        float handRotation = Mathf.Acos(Vector3.Dot(Vector3.Normalize(handGoalUp), Vector3.Normalize(forearmUp)));
+        float dir = d(handGoal.transform.position + Vector3.Normalize(forearmUp), handGoal.transform.position, handGoal.transform.position + handGoal.transform.up);
+        float handRotation = Mathf.Acos(Vector3.Dot(Vector3.Normalize(handUp), Vector3.Normalize(forearmUp)));
+
         if (handRotation < 1.5708 || dir > 0)
         {
             wristGoal.transform.RotateAround(wristGoal.transform.position, new Vector3(-1, 0, 0), ((Input.GetKey(KeyCode.W) ? 1 : 0) * rotationalSpeed));
@@ -60,6 +63,15 @@ public class IKController : MonoBehaviour
         if (handRotation < 1.5708 || dir < 0)
         {
             wristGoal.transform.RotateAround(wristGoal.transform.position, new Vector3(-1, 0, 0), ((Input.GetKey(KeyCode.S) ? -1 : 0) * rotationalSpeed));
+        } 
+        if (handRotation > 1.5708 &&  dir > 0 ) {
+            float rotateAngle = handRotation - Mathf.PI/2;
+            wristGoal.transform.RotateAround(wristGoal.transform.position, new Vector3(-1, 0, 0), rotateAngle*15f);
+        } 
+        if (handRotation > 1.5708 &&  dir < 0 ) {
+
+            float rotateAngle = handRotation - Mathf.PI/2;
+            wristGoal.transform.RotateAround(wristGoal.transform.position, new Vector3(1, 0, 0), rotateAngle*15f);
         }
 
         wristJoint.transform.rotation = wristGoal.transform.rotation;
